@@ -53,6 +53,6 @@ Próximamente se agregarán más proyectos, como:
 
 ## Contacto
 
-- [LinkedIn](https://www.linkedin.com/camilavheuer) 
+- [LinkedIn](https://www.linkedin.com/camilavheuer/) 
 - Email: **cbvillalbaheuer@gmail.com**
 
