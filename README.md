@@ -1,58 +1,76 @@
-# Portafolio de Proyectos de Bases de Datos
+# Database Projects Portfolio
 
-Bienvenidos a mi portafolio de proyectos SQL. Soy **Camila Villalba Heuer**, ingeniera química y especialista nuclear, actualmente aprendiendo análisis de datos y desarrollo de bases de datos con la finalidad de ampliar mi universo de oportunidades y combinar mis conocimientos ingenieriles con el mundo de los datos.
-Este repositorio recopila proyectos prácticos diseñados para demostrar mis habilidades en diseño, implementación y consulta de bases de datos.
+I am Camila Villalba Heuer, a chemical engineer and nuclear specialist, currently training in data analysis and database development. My goal is to integrate my engineering experience with the potential of the data world, creating solutions that combine technical rigor and practical value.
 
----
-
-## Objetivos
-
-- Modelar bases de datos relacionales.
-- Escribir scripts SQL con buenas prácticas.
-- Aplicar funciones agregadas, joins y subconsultas.
-- Documentar proyectos de forma clara y profesional.
+In this repository you will find practical projects that demonstrate my skills in designing, implementing, and querying databases, applying key SQL concepts in real and simulated scenarios.
 
 ---
 
-## Estructura del repositorio
-/proyecto-libreria/
+## Objectives
+
+- Model relational databases.
+- Write SQL scripts following best practices.
+- Apply aggregate functions, joins, and subqueries.
+- Document projects clearly and professionally.
+
+---
+
+## Repository Structure
+
+Each project has its own folder with the following structure:
+
+```
+/project-name/
 │
-├── modelo_ER.png → Diagrama de entidad-relación
-├── script_creacion.sql → Sentencias CREATE TABLE con restricciones
-├── carga_datos.sql → Datos de ejemplo (INSERT INTO)
-├── consultas.sql → Consultas clave (SELECT, JOIN, etc.)
-└── README.md → Descripción del proyecto
+├── modelo_ER.png → Entity-Relationship diagram
+├── create_table.sql → CREATE TABLE statements with constraints
+├── insert_data.sql → Sample data (INSERT INTO)
+├── queries.sql → Key queries (SELECT, JOIN, etc.)
+└── README.md → Project-specific description
+```
 
+Current example:
 
----
-
-## Proyectos incluidos
-
-### 1. Sistema de gestión para una librería (en progreso)
-
-- Entidades: libros, autores, clientes, ventas
-- Consultas: libros más vendidos, clientes frecuentes, ingresos por mes
-- Motor: MySQL (DB Fiddle para ejecución online)
-
-Próximamente se agregarán más proyectos, como:
-
-- Sistema de turnos médicos
-- Análisis de datos públicos (INDEC, Banco Mundial)
-- Base de datos de películas
+```
+/bookshop/
+│
+├── modelo_ER.png
+├── create_table.sql
+├── insert_data.sql
+├── queries.sql
+└── README.md
+```
 
 ---
 
-## Herramientas utilizadas
+## Included Projects
 
-- SQL (MySQL, PostgreSQL)
-- DB Fiddle para pruebas en línea
-- GitHub para versionado y documentación
-- DrawSQL / dbdiagram.io para diagramas ER
+### 1. Bookshop Management System (`bookshop`)
+
+- Entities: books, authors, customers, sales
+- Queries: best-selling books, frequent customers, monthly revenue
+- Engine: MySQL (DB Fiddle for online execution)
+
+More projects coming soon, such as:
+
+- Medical appointment system
+- Public data analysis (INDEC, World Bank)
+- Movie database
+
+Each project will have its own ER diagram and specific documentation.
 
 ---
 
-## Contacto
+## Tools Used
 
-- [LinkedIn](https://www.linkedin.com/camilavheuer/) 
+- SQL (MySQL)
+- DB Fiddle for online testing
+- GitHub for versioning and documentation
+- Draw.io for ER diagrams
+
+---
+
+## Contact
+
+- [LinkedIn](https://www.linkedin.com/camilavheuer/)
 - Email: **cbvillalbaheuer@gmail.com**
-
