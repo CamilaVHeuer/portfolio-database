@@ -72,5 +72,5 @@ Each project will have its own ER diagram and specific documentation.
 
 ## Contact
 
-- [LinkedIn](https://www.linkedin.com/camilavheuer/)
+- [LinkedIn](https://www.linkedin.com/in/camilavheuer)
 - Email: **cbvillalbaheuer@gmail.com**
