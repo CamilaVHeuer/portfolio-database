@@ -1,10 +1,10 @@
---Queries that address the objectives of the clinic management system
--- Gestion de la informacion de la clinica: consultas para acceder y organizar datos esenciales, como listas de pacientes, doctores y citas.
--- 1.Listar todos los pacientes ordenados por fecha de nacimiento.
+-- Queries that address the objectives of the clinic management system
+-- Clinic information management: queries to access and organize essential data, such as lists of patients, doctors, and appointments.
+-- 1. List all patients ordered by birth date.
 
 SELECT * FROM patients ORDER BY birth_date ASC;
 
--- 2.Mostrar todos los doctores junto a su especialidad.
+-- 2. Show all doctors along with their specialty.
 SELECT
     d.doctor_id,
     CONCAT(
@@ -17,7 +17,7 @@ SELECT
 FROM doctors d
     JOIN specialties s ON d.specialty_id = s.specialty_id;
 
--- 3.Consultar todas las citas programadas para una fecha específica.
+-- 3. Query all scheduled appointments for a specific date.
 SELECT
     a.appointment_date,
     a.appointment_time,
@@ -39,17 +39,19 @@ FROM
     JOIN patients p ON a.patient_id = p.patient_id
     JOIN doctors d ON a.doctor_id = d.doctor_id
 WHERE
-    a.appointment_date = '2025-08-12';
+    a.appointment_date = '2025-07-28';
 
--- Monitoreo y desempeño de citas: consultas para rastrear el estado de las citas, identificar cancelaciones y programar seguimientos.
--- 1.Contar el número de citas programadas, completadas y canceladas.
+-- Appointment monitoring and performance: queries to track appointment status, identify cancellations, and schedule follow-ups.
+-- 1. Count the number of scheduled, completed, and cancelled appointments.
 SELECT a.status, COUNT(*) AS total
 FROM appointments a
 GROUP BY
     a.status;
--- 2.Listar las citas canceladas
+
+-- 2. List cancelled appointments
 SELECT a.* FROM appointments a WHERE a.status = 'cancelled';
--- 3.Listar las citas programadas para cada doctor y su especialidad
+
+-- 3. List scheduled appointments for each doctor and their specialty
 SELECT
     d.doctor_id,
     CONCAT(
@@ -69,7 +71,7 @@ GROUP BY
     d.doctor_id,
     speciality_name;
 
--- 4.Mostrar cuántos turnos fueron completados por especialidad
+-- 4. Show how many appointments were completed by specialty
 SELECT
     s.specialty_id,
     s.name AS specialty_name,
@@ -83,8 +85,8 @@ WHERE
 GROUP BY
     s.specialty_id;
 
--- Gestión de la disponibilidad de doctores y salas: consultas para verificar la disponibilidad de doctores y salas, facilitando la programación eficiente de citas.
--- 1.Listar la disponibilidad de doctores para una fecha específica (asumiendo que un doctor puede tener múltiples citas en un día, pero no a la misma hora)
+-- Doctor and room availability management: queries to check the availability of doctors and rooms, facilitating efficient appointment scheduling.
+-- 1. List doctor availability for a specific date (assuming a doctor can have multiple appointments in a day, but not at the same time)
 SELECT d.doctor_id, CONCAT(
         d.first_name, ' ', d.last_name
     ) AS doctor_name, a.appointment_date, a.appointment_time, a.status
@@ -94,7 +96,7 @@ WHERE
     a.appointment_date = '2025-08-12'
     AND a.status = 'Scheduled'
 ORDER BY d.doctor_id, a.appointment_time;
--- 2.Listar la disponibilidad de salas para una fecha específica
+-- 2. List room availability for a specific date
 SELECT r.room_id, r.room_number, r.floor, a.appointment_date, a.appointment_time, a.status
 FROM rooms r
     LEFT JOIN appointments a ON r.room_id = a.room_id
@@ -103,8 +105,8 @@ WHERE
     AND a.status = 'Scheduled'
 ORDER BY r.room_id, a.appointment_time;
 
---Analisis estrategico de citas: consultas para identificar tendencias en la programación de citas, como horas pico y especialidades más solicitadas.
--- 1.Identificar las horas pico de citas programadas
+-- Strategic appointment analysis: queries to identify trends in appointment scheduling, such as peak hours and most requested specialties.
+-- 1. Identify peak hours for scheduled appointments
 SELECT
     HOUR(appointment_time) AS appointment_hour,
     COUNT(*) AS total_appointments
@@ -112,7 +114,8 @@ FROM appointments
 GROUP BY
     appointment_hour
 ORDER BY appointment_hour;
--- 2.Identificar dias de la semana con más citas programadas
+
+-- 2. Identify days of the week with the most scheduled appointments
 SELECT
     DAYNAME(appointment_date) AS appointment_day,
     COUNT(*) AS total_appointments
@@ -122,7 +125,8 @@ GROUP BY
 ORDER BY FIELD(
         appointment_day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
     );
--- 3.Listar las especialidades más solicitadas por número de citas programadas
+
+-- 3. List the most requested specialties by number of scheduled appointments
 SELECT
     s.specialty_id,
     s.name AS specialty_name,
@@ -135,7 +139,8 @@ GROUP BY
     s.specialty_id,
     s.name
 ORDER BY total_appointments DESC;
--- 4.Listar los pacientes con más citas programadas
+
+-- 4. List patients with the most scheduled appointments
 SELECT
     p.patient_id,
     CONCAT(
@@ -152,7 +157,8 @@ GROUP BY
     p.last_name
 ORDER BY total_appointments DESC;
 
--- 5.Listar los doctores con más citas
+-- 5. List doctors with the most appointments per month
+-- (assuming you want to see the total appointments per doctor in a specific month)
 SELECT
     d.doctor_id,
     CONCAT(
@@ -160,11 +166,31 @@ SELECT
         ' ',
         d.last_name
     ) AS doctor_name,
-    COUNT(a.appointment_id) AS total_appointments
+    COUNT(a.appointment_id) AS total_appointments,
+    MONTH(a.appointment_date) AS appointment_month
 FROM doctors d
     LEFT JOIN appointments a ON d.doctor_id = a.doctor_id
 GROUP BY
     d.doctor_id,
     d.first_name,
-    d.last_name
+    d.last_name,
+    appointment_month
 ORDER BY total_appointments DESC;
+
+-- 6. List specialties with the most cancelled appointments per month
+SELECT
+    s.specialty_id,
+    s.name AS specialty_name,
+    COUNT(a.appointment_id) AS total_cancelled_appointments,
+    MONTH(a.appointment_date) AS appointment_month
+FROM
+    specialties s
+    JOIN doctors d ON s.specialty_id = d.specialty_id
+    JOIN appointments a ON d.doctor_id = a.doctor_id
+WHERE
+    a.status = 'Cancelled'
+GROUP BY
+    s.specialty_id,
+    s.name,
+    appointment_month
+ORDER BY total_cancelled_appointments DESC;

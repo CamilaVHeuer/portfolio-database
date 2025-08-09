@@ -1,33 +1,33 @@
--- Script para insertar datos iniciales en la base de datos de una clínica médica
--- Insertar especialidades
+-- Script to insert initial data into the medical clinic database
+-- Insert specialties
 INSERT INTO
     specialties (name, description)
 VALUES (
-        'Cardiología',
-        'Diagnóstico y tratamiento de enfermedades del corazón. Atención a adolescentes y adultos.'
+        'Cardiology',
+        'Diagnosis and treatment of heart diseases. Care for adolescents and adults.'
     ),
     (
-        'Pediatría',
-        'Atención médica a bebés, niños y adolescentes.'
+        'Pediatrics',
+        'Medical care for babies, children, and adolescents.'
     ),
     (
-        'Dermatología',
-        'Estudio y tratamiento de enfermedades de la piel. Atención a todas las edades.'
+        'Dermatology',
+        'Study and treatment of skin diseases. Care for all ages.'
     ),
     (
-        'Ginecología',
-        'Atención médica general a adultas y adolescentes.'
+        'Gynecology',
+        'General medical care for adult and adolescent women.'
     ),
     (
-        'Ginecología y obstetricia',
-        'Atención médica especializada en el embarazo y fertilidad, a adultas y adolescentes'
+        'Gynecology and Obstetrics',
+        'Specialized medical care in pregnancy and fertility, for adult and adolescent women.'
     ),
     (
-        'Oftalmología',
-        'Diagnóstico y tratamiento de enfermedades oculares.'
+        'Ophthalmology',
+        'Diagnosis and treatment of eye diseases.'
     );
 
--- Insertar médicos
+-- Insert doctors
 INSERT INTO
     doctors (
         first_name,
@@ -79,7 +79,7 @@ VALUES (
         'lucia.torres@clinic.com'
     );
 
--- Insertar pacientes
+-- Insert patients
 INSERT INTO
     patients (
         first_name,
@@ -162,7 +162,7 @@ VALUES (
         'Av. Libertador 789 CABA'
     );
 
--- Insertar consultorios
+-- Insert rooms
 INSERT INTO
     rooms (room_number, floor)
 VALUES ('101', 1),
@@ -172,7 +172,7 @@ VALUES ('101', 1),
     ('401', 4),
     ('402', 4);
 
--- Insertar turnos médicos
+-- Insert medical appointments
 INSERT INTO
     appointments (
         patient_id,
@@ -190,7 +190,7 @@ VALUES (
         '2025-08-12',
         '09:00:00',
         'Scheduled',
-        'Chequeo anual.'
+        'Annual check-up.'
     ),
     (
         2,
@@ -199,7 +199,7 @@ VALUES (
         '2025-08-13',
         '14:30:00',
         'Completed',
-        'Consulta de control pediátrico.'
+        'Pediatric follow-up.'
     ),
     (
         3,
@@ -208,7 +208,7 @@ VALUES (
         '2025-08-14',
         '11:15:00',
         'Cancelled',
-        'Paciente reprograma cita.'
+        'Patient rescheduled appointment.'
     ),
     (
         1,
@@ -217,7 +217,7 @@ VALUES (
         '2025-08-15',
         '10:00:00',
         'Scheduled',
-        'Consulta dermatológica por alergia.'
+        'Dermatology appointment for allergy.'
     ),
     (
         5,
@@ -226,7 +226,7 @@ VALUES (
         '2025-08-16',
         '13:00:00',
         'Scheduled',
-        'Control ginecológico anual.'
+        'Annual gynecological check-up.'
     ),
     (
         5,
@@ -235,7 +235,7 @@ VALUES (
         '2025-08-17',
         '15:30:00',
         'Scheduled',
-        'Consulta de fertilidad.'
+        'Fertility consultation.'
     ),
     (
         4,
@@ -244,7 +244,7 @@ VALUES (
         '2025-08-18',
         '12:45:00',
         'Scheduled',
-        'Revisión de vista anual.'
+        'Annual eye exam.'
     ),
     (
         6,
@@ -253,7 +253,7 @@ VALUES (
         '2025-08-19',
         '08:30:00',
         'Scheduled',
-        'Chequeo de rutina.'
+        'Routine check-up.'
     ),
     (
         2,
@@ -262,7 +262,7 @@ VALUES (
         '2025-08-20',
         '10:15:00',
         'Scheduled',
-        'Consulta de alergias.'
+        'Allergy consultation.'
     ),
     (
         7,
@@ -271,7 +271,7 @@ VALUES (
         '2025-08-21',
         '11:45:00',
         'Scheduled',
-        'Consulta dermatológica por erupción cutánea.'
+        'Dermatology appointment for skin rash.'
     ),
     (
         8,
@@ -280,7 +280,7 @@ VALUES (
         '2025-08-22',
         '09:30:00',
         'Scheduled',
-        'Control pediátrico de crecimiento.'
+        'Pediatric growth check.'
     ),
     (
         3,
@@ -289,7 +289,7 @@ VALUES (
         '2025-08-23',
         '14:00:00',
         'Scheduled',
-        'Consulta ginecológica de rutina.'
+        'Routine gynecological appointment.'
     ),
     (
         4,
@@ -298,5 +298,68 @@ VALUES (
         '2025-08-24',
         '16:00:00',
         'Scheduled',
-        'Chequeo cardiológico.'
+        'Cardiology check-up.'
+    ),
+    (
+        1,
+        2,
+        2,
+        '2025-07-25',
+        '17:30:00',
+        'Cancelled',
+        'Follow-up appointment.'
+    ),
+    (
+        5,
+        3,
+        3,
+        '2025-07-28',
+        '09:00:00',
+        'Cancelled',
+        'Dermatology check-up.'
+    ),
+    (
+        7,
+        4,
+        4,
+        '2025-07-27',
+        '12:30:00',
+        'Completed',
+        'Gynecological check-up.'
+    ),
+    (
+        8,
+        3,
+        3,
+        '2025-07-29',
+        '10:00:00',
+        'Cancelled',
+        'Dermatology check-up.'
+    ),
+    (
+        1,
+        4,
+        4,
+        '2025-07-27',
+        '13:30:00',
+        'Completed',
+        'Gynecological check-up.'
+    ),
+    (
+        6,
+        6,
+        1,
+        '2025-07-28',
+        '12:00:00',
+        'Completed',
+        'Routine check-up.'
+    ),
+    (
+        9,
+        1,
+        1,
+        '2025-08-04',
+        '11:00:00',
+        'Completed',
+        'Routine check-up.'
     );

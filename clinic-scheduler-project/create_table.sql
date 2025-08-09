@@ -1,13 +1,13 @@
--- Script para crear las tablas de la base de datos del sistema de programación de citas médicas
+-- Script to create the tables for the medical appointment scheduling system database
 
--- Tabla de especialidades médicas
+-- Medical specialties table
 CREATE TABLE specialties (
     specialty_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     description TEXT
 );
 
--- Tabla de médicos
+-- Doctors table
 CREATE TABLE doctors (
     doctor_id INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(50) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE doctors (
     FOREIGN KEY (specialty_id) REFERENCES specialties (specialty_id)
 );
 
--- Tabla de pacientes
+-- Patients table
 CREATE TABLE patients (
     patient_id INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(50) NOT NULL,
@@ -29,14 +29,14 @@ CREATE TABLE patients (
     address VARCHAR(150)
 );
 
--- Tabla de consultorios
+-- Rooms table
 CREATE TABLE rooms (
     room_id INT PRIMARY KEY AUTO_INCREMENT,
     room_number VARCHAR(10) NOT NULL,
     floor INT NOT NULL
 );
 
--- Tabla de turnos médicos
+-- Medical appointments table
 CREATE TABLE appointments (
     appointment_id INT PRIMARY KEY AUTO_INCREMENT,
     patient_id INT NOT NULL,
