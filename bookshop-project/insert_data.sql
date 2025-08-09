@@ -52,17 +52,17 @@ INSERT INTO
 VALUES (
         'Dan',
         'Brown',
-        'Estados Unidos'
+        'United States'
     ),
     (
         'John',
         'Le Carre',
-        'Reino Unido'
+        'United Kingdom'
     ),
     (
         'Marcus',
         'Sakey',
-        'Estados Unidos'
+        'United States'
     ),
     (
         'Mariano',
@@ -72,7 +72,7 @@ VALUES (
     (
         'Sidney',
         'Sheldon',
-        'Estados Unidos'
+        'United States'
     ),
     (
         'Mariano',
@@ -87,27 +87,27 @@ VALUES (
     (
         'John',
         'Grisham',
-        'Estados Unidos'
+        'United States'
     ),
     (
         'Marian',
         'Rojas Estape',
-        'España'
+        'Spain'
     ),
     (
         'Philip',
         'Pullman',
-        'Reino Unido'
+        'United Kingdom'
     ),
     (
         'Danielle',
         'Steel',
-        'Estados Unidos'
+        'United States'
     ),
     (
         'Mathew',
         'Walker',
-        'Reino Unido'
+        'United Kingdom'
     );
 
 -- Inserting data into the books table
@@ -120,7 +120,7 @@ INSERT INTO
         stock
     )
 VALUES (
-        'Origen',
+        'Origin',
         (
             SELECT author_id
             FROM authors
@@ -128,12 +128,12 @@ VALUES (
                 first_name = 'Dan'
                 AND last_name = 'Brown'
         ),
-        'Novela/Ciencia Ficción',
+        'Novel/Science Fiction',
         30000,
         10
     ),
     (
-        'Angeles y Demonios',
+        'Angels and Demons',
         (
             SELECT author_id
             FROM authors
@@ -141,12 +141,12 @@ VALUES (
                 first_name = 'Dan'
                 AND last_name = 'Brown'
         ),
-        'Ciencia Ficción',
+        'Science Fiction',
         28000,
         9
     ),
     (
-        'El codigo Da Vinci',
+        'The Da Vinci Code',
         (
             SELECT author_id
             FROM authors
@@ -154,12 +154,12 @@ VALUES (
                 first_name = 'Dan'
                 AND last_name = 'Brown'
         ),
-        'Ciencia Ficción',
+        'Science Fiction',
         39000,
         10
     ),
     (
-        'El hombre mas buscado',
+        'The Most Wanted Man',
         (
             SELECT author_id
             FROM authors
@@ -167,12 +167,12 @@ VALUES (
                 first_name = 'John'
                 AND last_name = 'Le Carre'
         ),
-        'Ficción de espionaje',
+        'Spy Fiction',
         20000,
         15
     ),
     (
-        'Al filo de la navaja',
+        'On the Razor\'s Edge',
         (
             SELECT author_id
             FROM authors
@@ -180,12 +180,12 @@ VALUES (
                 first_name = 'Marcus'
                 AND last_name = 'Sakey'
         ),
-        'Policial',
+        'Crime',
         15500,
         8
     ),
     (
-        'La vida secreta de la mente',
+        'The Secret Life of the Mind',
         (
             SELECT author_id
             FROM authors
@@ -193,12 +193,12 @@ VALUES (
                 first_name = 'Mariano'
                 AND last_name = 'Sigman'
         ),
-        'Neurociencia',
+        'Neuroscience',
         28200,
         5
     ),
     (
-        'Nada es eterno',
+        'Nothing Lasts Forever',
         (
             SELECT author_id
             FROM authors
@@ -206,12 +206,12 @@ VALUES (
                 first_name = 'Sidney'
                 AND last_name = 'Sheldon'
         ),
-        'Novela',
+        'Novel',
         14600,
         15
     ),
     (
-        'Neurociencia ficcion',
+        'Neuroscience Fiction',
         (
             SELECT author_id
             FROM authors
@@ -219,12 +219,12 @@ VALUES (
                 first_name = 'Mariano'
                 AND last_name = 'Quian Quiroga'
         ),
-        'Neurociencia',
+        'Neuroscience',
         22900,
         7
     ),
     (
-        'La conspiracion',
+        'The Conspiracy',
         (
             SELECT author_id
             FROM authors
@@ -232,12 +232,12 @@ VALUES (
                 first_name = 'Dan'
                 AND last_name = 'Brown'
         ),
-        'Novela/Ciencia Ficción',
+        'Novel/Science Fiction',
         27050,
         12
     ),
     (
-        'El secreto atomico de Huemul',
+        'The Atomic Secret of Huemul',
         (
             SELECT author_id
             FROM authors
@@ -245,12 +245,12 @@ VALUES (
                 first_name = 'Mario A. J.'
                 AND last_name = 'Mariscotti'
         ),
-        'Historia',
+        'History',
         18000,
         3
     ),
     (
-        'Si hubiera un mañana',
+        'If Tomorrow Comes',
         (
             SELECT author_id
             FROM authors
@@ -258,12 +258,12 @@ VALUES (
                 first_name = 'Sidney'
                 AND last_name = 'Sheldon'
         ),
-        'Novela',
+        'Novel',
         12000,
         16
     ),
     (
-        'Lazos de Sangre',
+        'Blood Ties',
         (
             SELECT author_id
             FROM authors
@@ -271,12 +271,12 @@ VALUES (
                 first_name = 'Sidney'
                 AND last_name = 'Sheldon'
         ),
-        'Novela',
+        'Novel',
         21000,
         4
     ),
     (
-        'El secreto de Gray Montain',
+        'Gray Mountain Secret',
         (
             SELECT author_id
             FROM authors
@@ -284,12 +284,12 @@ VALUES (
                 first_name = 'John'
                 AND last_name = 'Grisham'
         ),
-        'Misterio',
+        'Mystery',
         31500,
         20
     ),
     (
-        'Recupera tu mente, reconquista tu vida',
+        'Recover Your Mind, Reclaim Your Life',
         (
             SELECT author_id
             FROM authors
@@ -297,12 +297,12 @@ VALUES (
                 first_name = 'Marian'
                 AND last_name = 'Rojas Estape'
         ),
-        'Divulgacion vientifica/Salud',
+        'Scientific Outreach/Health',
         30000,
         10
     ),
     (
-        'La Daga',
+        'The Dagger',
         (
             SELECT author_id
             FROM authors
@@ -310,12 +310,12 @@ VALUES (
                 first_name = 'Philip'
                 AND last_name = 'Pullman'
         ),
-        'Fantasia',
+        'Fantasy',
         8000,
         7
     ),
     (
-        'Fiel a si misma',
+        'True to Herself',
         (
             SELECT author_id
             FROM authors
@@ -323,12 +323,12 @@ VALUES (
                 first_name = 'Danielle'
                 AND last_name = 'Steel'
         ),
-        'Novela',
+        'Novel',
         22600,
         6
     ),
     (
-        'Por qué dormimos',
+        'Why We Sleep',
         (
             SELECT author_id
             FROM authors
@@ -336,12 +336,12 @@ VALUES (
                 first_name = 'Mathew'
                 AND last_name = 'Walker'
         ),
-        'Divulgacion cientifica',
+        'Scientific Outreach',
         30000,
         10
     ),
     (
-        'Rescate',
+        'Rescue',
         (
             SELECT author_id
             FROM authors
@@ -349,12 +349,12 @@ VALUES (
                 first_name = 'Danielle'
                 AND last_name = 'Steel'
         ),
-        'Novela',
+        'Novel',
         25600,
         8
     ),
     (
-        'Relámpago',
+        'Lightning',
         (
             SELECT author_id
             FROM authors
@@ -362,7 +362,7 @@ VALUES (
                 first_name = 'Danielle'
                 AND last_name = 'Steel'
         ),
-        'Novela',
+        'Novel',
         19600,
         14
     );
@@ -388,9 +388,9 @@ VALUES (
             SELECT SUM(price)
             FROM books
             WHERE
-                title IN ('Origen')
+                title IN ('Origin')
         ),
-        'En tienda'
+        'In store'
     ),
     (
         (
@@ -405,9 +405,9 @@ VALUES (
             SELECT SUM(price)
             FROM books
             WHERE
-                title IN ('Origen', 'La conspiracion')
+                title IN ('Origin', 'The Conspiracy')
         ),
-        'En tienda'
+        'In store'
     ),
     (
         (
@@ -422,9 +422,12 @@ VALUES (
             SELECT SUM(price)
             FROM books
             WHERE
-                title IN ('Origen', 'Nada es eterno')
+                title IN (
+                    'Origin',
+                    'Nothing Lasts Forever'
+                )
         ),
-        'Sitio web'
+        'Website'
     ),
     (
         (
@@ -440,11 +443,11 @@ VALUES (
             FROM books
             WHERE
                 title IN (
-                    'Al filo de la navaja',
-                    'Nada es eterno'
+                    'On the Razor\'s Edge',
+                    'Nothing Lasts Forever'
                 )
         ),
-        'Sitio web'
+        'Website'
     ),
     (
         (
@@ -459,12 +462,9 @@ VALUES (
             SELECT SUM(price)
             FROM books
             WHERE
-                title IN (
-                    'Angeles y demonios',
-                    'Rescate'
-                )
+                title IN ('Angels and Demons', 'Rescue')
         ),
-        'Sitio web'
+        'Website'
     ),
     (
         (
@@ -480,12 +480,12 @@ VALUES (
             FROM books
             WHERE
                 title IN (
-                    'Angeles y demonios',
-                    'Nada es eterno',
-                    'La vida secreta de la mente'
+                    'Angels and Demons',
+                    'Nothing Lasts Forever',
+                    'The Secret Life of the Mind'
                 )
         ),
-        'En tienda'
+        'In store'
     ),
     (
         (
@@ -500,9 +500,9 @@ VALUES (
             SELECT SUM(price)
             FROM books
             WHERE
-                title IN ('Origen', 'Por que dormimos')
+                title IN ('Origin', 'Why We Sleep')
         ),
-        'Sitio web'
+        'Website'
     ),
     (
         (
@@ -518,11 +518,11 @@ VALUES (
             FROM books
             WHERE
                 title IN (
-                    'La vida secreta de la mente',
-                    'Neurociencia ficcion'
+                    'The Secret Life of the Mind',
+                    'Neuroscience Fiction'
                 )
         ),
-        'Sitio web'
+        'Website'
     ),
     (
         (
@@ -538,12 +538,12 @@ VALUES (
             FROM books
             WHERE
                 title IN (
-                    'El secreto atómico de Huemul',
-                    'Nada es eterno',
-                    'Lazos de sangre'
+                    'The Atomic Secret of Huemul',
+                    'Nothing Lasts Forever',
+                    'Blood Ties'
                 )
         ),
-        'En tienda'
+        'In store'
     ),
     (
         (
@@ -558,9 +558,9 @@ VALUES (
             SELECT SUM(price)
             FROM books
             WHERE
-                title IN ('Angeles y demonios')
+                title IN ('Angels and Demons')
         ),
-        'En tienda'
+        'In store'
     ),
     (
         (
@@ -576,12 +576,12 @@ VALUES (
             FROM books
             WHERE
                 title IN (
-                    'Origen',
-                    'Si hubiera un mañana',
-                    'El codigo Da Vinci'
+                    'Origin',
+                    'If Tomorrow Comes',
+                    'The Da Vinci Code'
                 )
         ),
-        'En tienda'
+        'In store'
     ),
     (
         (
@@ -597,11 +597,11 @@ VALUES (
             FROM books
             WHERE
                 title IN (
-                    'Angeles y demonios',
-                    'La daga'
+                    'Angels and Demons',
+                    'The Dagger'
                 )
         ),
-        'En tienda'
+        'In store'
     ),
     (
         (
@@ -617,10 +617,10 @@ VALUES (
             FROM books
             WHERE
                 title IN (
-                    'Recupera tu mente, reconquista tu vida'
+                    'Recover Your Mind, Reclaim Your Life'
                 )
         ),
-        'Sitio web'
+        'Website'
     );
 
 -- Creating a temporary table to store the relationships between sales, books, and quantities
@@ -645,182 +645,182 @@ VALUES (
         'Ana',
         'Garcia',
         '2024-12-04',
-        'Origen',
+        'Origin',
         1
     ),
     (
         'Camila',
         'Perez',
         '2024-12-21',
-        'Origen',
+        'Origin',
         1
     ),
     (
         'Camila',
         'Perez',
         '2024-12-21',
-        'La conspiracion',
+        'The Conspiracy',
         1
     ),
     (
         'Pablo',
         'Perez',
         '2025-01-04',
-        'Origen',
+        'Origin',
         1
     ),
     (
         'Pablo',
         'Perez',
         '2025-01-04',
-        'Nada es eterno',
+        'Nothing Lasts Forever',
         1
     ),
     (
         'Sergio',
         'Robles',
         '2025-01-15',
-        'Al filo de la navaja',
+        'On the Razor\'s Edge',
         1
     ),
     (
         'Sergio',
         'Robles',
         '2025-01-15',
-        'Nada es eterno',
+        'Nothing Lasts Forever',
         1
     ),
     (
         'Pablo',
         'Perez',
         '2025-02-02',
-        'Angeles y Demonios',
+        'Angels and Demons',
         1
     ),
     (
         'Pablo',
         'Perez',
         '2025-02-02',
-        'Rescate',
+        'Rescue',
         1
     ),
     (
         'Emilia',
         'Diaz',
         '2025-01-04',
-        'Angeles y Demonios',
+        'Angels and Demons',
         1
     ),
     (
         'Emilia',
         'Diaz',
         '2025-01-04',
-        'Nada es eterno',
+        'Nothing Lasts Forever',
         1
     ),
     (
         'Emilia',
         'Diaz',
         '2025-01-04',
-        'La vida secreta de la mente',
+        'The Secret Life of the Mind',
         1
     ),
     (
         'Emilia',
         'Diaz',
         '2025-02-01',
-        'Origen',
+        'Origin',
         1
     ),
     (
         'Emilia',
         'Diaz',
         '2025-02-01',
-        'Por qué dormimos',
+        'Why We Sleep',
         1
     ),
     (
         'Julio',
         'Marequez',
         '2025-02-08',
-        'La vida secreta de la mente',
+        'The Secret Life of the Mind',
         1
     ),
     (
         'Julio',
         'Marequez',
         '2025-02-08',
-        'Neurociencia ficcion',
+        'Neuroscience Fiction',
         1
     ),
     (
         'Ester',
         'Ramirez',
         '2025-01-28',
-        'El secreto atomico de Huemul',
+        'The Atomic Secret of Huemul',
         1
     ),
     (
         'Ester',
         'Ramirez',
         '2025-01-28',
-        'Nada es eterno',
+        'Nothing Lasts Forever',
         1
     ),
     (
         'Ester',
         'Ramirez',
         '2025-01-28',
-        'Lazos de Sangre',
+        'Blood Ties',
         1
     ),
     (
         'Sebastian',
         'Rodriguez',
         '2024-12-05',
-        'Angeles y Demonios',
+        'Angels and Demons',
         1
     ),
     (
         'Sebastian',
         'Rodriguez',
         '2024-01-10',
-        'Origen',
+        'Origin',
         1
     ),
     (
         'Sebastian',
         'Rodriguez',
         '2024-01-10',
-        'Si hubiera un mañana',
+        'If Tomorrow Comes',
         1
     ),
     (
         'Sebastian',
         'Rodriguez',
         '2024-01-10',
-        'El codigo Da Vinci',
+        'The Da Vinci Code',
         1
     ),
     (
         'Camila',
         'Perez',
         '2025-02-19',
-        'Angeles y Demonios',
+        'Angels and Demons',
         1
     ),
     (
         'Camila',
         'Perez',
         '2025-02-19',
-        'La Daga',
+        'The Dagger',
         1
     ),
     (
         'Camila',
         'Perez',
         '2025-03-06',
-        'Recupera tu mente, reconquista tu vida',
+        'Recover Your Mind, Reclaim Your Life',
         1
     );
 
@@ -829,8 +829,7 @@ VALUES (
 -- including the sale id, book id, unit price, and quantity sold.
 -- The sale_id is linked to the sales table, and the book_id is linked to the books table.
 -- The unit_price is taken from the books table, and the quantity is taken from the temporary table.
-DROP TABLE IF EXISTS temp_sale_books;
--- Clean up the temporary table after use
+
 INSERT INTO
     sale_details (
         sale_id,
@@ -849,3 +848,6 @@ FROM
     JOIN sales AS s ON s.customer_id = c.customer_id
     AND s.date = t.sale_date
     JOIN books AS b ON b.title = t.book_title;
+
+DROP TABLE IF EXISTS temp_sale_books;
+-- Clean up the temporary table after use
