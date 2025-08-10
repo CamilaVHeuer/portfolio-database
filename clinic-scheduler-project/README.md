@@ -43,8 +43,8 @@ This project aims to design and implement a relational database for managing med
    Start by creating your database in MySQL, for example:
 
    ```sql
-   CREATE DATABASE clinic_scheduler;
-   USE clinic_scheduler;
+   CREATE DATABASE clinic_scheduler_db;
+   USE clinic_scheduler_db;
    ```
 
 2. **Run `create_table.sql`**  
@@ -55,6 +55,76 @@ This project aims to design and implement a relational database for managing med
 
 4. **Run `queries.sql`**  
    Execute the queries to manage, monitor, and analyze clinic activity.
+
+## Running with XAMPP and phpMyAdmin
+
+You can run this project entirely on the MySQL server included with XAMPP.
+
+**Steps:**
+
+1. **Start XAMPP services**
+
+   - Open the XAMPP Control Panel.
+   - Start the MySQL service (required).
+   - Start Apache only if you plan to use phpMyAdmin.
+
+2. **Connect from your SQL client (VS Code extension, DBeaver, etc.)**
+
+   - Create a new connection with these settings:
+     - Host: `localhost`
+     - Port: `3306`
+     - User: `root`
+     - Password: _(leave blank if using default)_
+   - This connects to the same MySQL server used by phpMyAdmin.
+
+3. **Create and populate the database**
+
+   - From your SQL client:
+     - Create the database:
+       ```sql
+       CREATE DATABASE clinic_scheduler_db;
+       USE clinic_scheduler_db;
+       ```
+     - Run `create_table.sql` to set up the schema.
+     - Run `insert_data.sql` to insert sample data.
+
+4. **View and manage data in phpMyAdmin**
+   - Open your browser and go to [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
+   - You will see the `clinic_scheduler_db` database with all tables and data created from your SQL client.
+   - From phpMyAdmin, you can:
+     - Browse tables and data visually
+     - Run SQL queries
+     - Export or import data
+     - Perform administrative tasks
+
+**Tip:**  
+Any changes you make in VS Code (or your SQL client) will be instantly reflected in phpMyAdmin, since both connect to the same MySQL server.
+
+Example:
+
+## Example Query Results in phpMyAdmin
+
+Below are examples of how the main queries look when executed in phpMyAdmin:
+
+### 1. List of all patients ordered by birth date
+
+![Patients ordered by birth date](./images/patients_by_birthdate.png)
+
+### 2. List scheduled appointments for each doctor and their specialty
+
+![scheduled appointments for each doctor and their specialty](./images/scheduled_appointments_doctors.png)
+
+### 3. List specialties with the most cancelled appointments per month
+
+![cancelled appointments per month](./images/cancelled_appointments%20_per_month.png)
+
+### 4. Peak days of the week for scheduled appointments
+
+![Peak day of the week for appointments](./images/peak_day_for_appointments.png)
+
+### 5. Peak hours for scheduled appointments
+
+![Peak hours for appointments](./images/peak_hours_for_appointments.png)
 
 ## Author
 
