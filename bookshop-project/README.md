@@ -1,5 +1,21 @@
 # Bookshop Database Scripts
 
+## Project Objective
+
+This project aims to design and implement a relational database for managing a bookstore. The system allows you to store and organize information about customers, authors, books, sales, and sale details, enabling efficient management, reporting, and analysis of bookstore activity.
+
+## Folder Structure
+
+```
+/bookshop-project/
+│
+├── create_table.sql   # Table creation script
+├── insert_data.sql    # Sample data insertion script
+├── queries.sql        # Key queries for management and analysis
+├── modelo_ER.png      # Entity-Relationship diagram (to be added)
+└── README.md          # Project documentation
+```
+
 ## Steps to set up the database from scratch
 
 1. **Install the SQLTools extension in VSCode**
@@ -86,3 +102,11 @@ Run the scripts in the following order:
 2. `insert_data.sql`
 3. `queries.sql`  
    This ensures the correct creation, loading, and querying of the bookstore database.
+
+---
+
+## Author
+
+Camila Villalba Heuer  
+[LinkedIn](https://www.linkedin.com/in/camilavheuer)  
+cbvillalbaheuer@gmail.com
