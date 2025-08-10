@@ -1,4 +1,4 @@
-# Bookshop Database Scripts
+# Bookshop Project
 
 ## Project Objective
 
