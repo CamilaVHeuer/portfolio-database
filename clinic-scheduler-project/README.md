@@ -9,35 +9,52 @@ This project aims to design and implement a relational database for managing med
 ```
 /clinic-scheduler-project/
 │
-├── create_table.sql   # Script to create all database tables
-├── insert_data.sql    # Script to insert initial sample data
+├── create_table.sql   # Table creation script
+├── insert_data.sql    # Sample data insertion script
 ├── queries.sql        # Key queries for management and analysis
 ├── modelo_ER.png      # Entity-Relationship diagram (to be added)
 └── README.md          # Project documentation
 ```
 
-## Scripts Overview
+## Scripts
 
-- **create_table.sql**: Contains all `CREATE TABLE` statements with primary and foreign key constraints for specialties, doctors, patients, rooms, and appointments.
-- **insert_data.sql**: Inserts sample data for specialties, doctors, patients, rooms, and appointments to facilitate testing and demonstration.
-- **queries.sql**: Includes useful SQL queries for listing patients, doctors, appointments, monitoring appointment status, analyzing trends, and more.
+- **create_table.sql**  
+  Creates all tables required for the clinic scheduler database, including primary keys, foreign keys, and constraints for:
 
-## Execution Order
+  - Specialties
+  - Doctors
+  - Patients
+  - Rooms
+  - Appointments
 
-1. **Run `create_table.sql`**  
-   Creates all necessary tables in the database.
+- **insert_data.sql**  
+  Inserts sample records into each table, providing realistic data for specialties, doctors, patients, rooms, and appointments. This allows you to test and explore the database with meaningful examples.
 
-2. **Run `insert_data.sql`**  
-   Populates the tables with initial sample data.
+- **queries.sql**  
+  Contains a collection of useful SQL queries to:
+  - List and organize patients, doctors, and appointments
+  - Monitor appointment status (scheduled, completed, cancelled)
+  - Analyze trends (peak hours, most requested specialties, cancellations)
+  - Support clinic management and reporting
 
-3. **Run `queries.sql`**  
-   Execute the queries to explore, manage, and analyze the clinic data.
+## How to Use
 
-## Notes
+1. **Create the database**  
+   Start by creating your database in MySQL, for example:
 
-- The database is designed for MySQL.
-- The ER diagram (`modelo_ER.png`) will be added to visually represent the data model.
-- You can use DB Fiddle or a local MySQL installation to run the scripts.
+   ```sql
+   CREATE DATABASE clinic_scheduler;
+   USE clinic_scheduler;
+   ```
+
+2. **Run `create_table.sql`**  
+   Set up the database schema by creating all tables.
+
+3. **Run `insert_data.sql`**  
+   Populate the tables with sample data.
+
+4. **Run `queries.sql`**  
+   Execute the queries to manage, monitor, and analyze clinic activity.
 
 ## Author
 
