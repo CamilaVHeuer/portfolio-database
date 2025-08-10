@@ -70,11 +70,8 @@ Current example:
   - Use of FIELD to order days of the week
   - Date and time functions for peak hour and trend analysis
   - Examples of referential integrity and constraints
-
-More projects coming soon, such as:
-
-- Public data analysis (INDEC, World Bank)
-- Movie database
+  - Project built and tested using XAMPP and phpMyAdmin
+  - Includes screenshots of query results as seen in phpMyAdmin
 
 Each project will have its own ER diagram and specific documentation.
 
@@ -86,6 +83,7 @@ Each project will have its own ER diagram and specific documentation.
 - DB Fiddle for online testing
 - GitHub for versioning and documentation
 - Draw.io for ER diagrams
+- XAMPP and phpMyAdmin (used for the Clinic Scheduler Project)
 
 ---
 
