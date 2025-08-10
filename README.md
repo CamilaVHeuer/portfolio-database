@@ -47,13 +47,32 @@ Current example:
 
 ### 1. Bookshop Management System (`bookshop`)
 
-- Entities: books, authors, customers, sales
+- Entities: books, authors, customers, sales, sale_details
 - Queries: best-selling books, frequent customers, monthly revenue
 - Engine: MySQL (DB Fiddle for online execution)
+- What you'll find:
+  - Basic SQL operations: SELECT, INSERT, UPDATE, DELETE
+  - Use of JOINs to relate books, authors, customers, and sales
+  - Aggregate functions (SUM, COUNT) for sales analysis
+  - UNION for combining results
+  - Subqueries for dynamic data retrieval
+  - Practical examples for querying and reporting on bookshop activity
+
+### 2. Clinic Scheduler Project (`clinic-scheduler-project`)
+
+- Entities: specialties, doctors, patients, rooms, appointments
+- Queries: scheduled/completed/cancelled appointments, doctor and room availability, patient lists, trend analysis (peak hours, most requested specialties)
+- Engine: MySQL (DB Fiddle for online execution)
+- What you'll find:
+  - Advanced SQL queries with multiple JOINs
+  - Use of ENUM type for appointment status
+  - Aggregate functions and grouping for monitoring appointments
+  - Use of FIELD to order days of the week
+  - Date and time functions for peak hour and trend analysis
+  - Examples of referential integrity and constraints
 
 More projects coming soon, such as:
 
-- Medical appointment system
 - Public data analysis (INDEC, World Bank)
 - Movie database
 
