@@ -14,7 +14,11 @@ This project aims to design and implement a relational database for managing an 
 ├── queries.sql         # Key queries for management and analysis
 ├── transactions.sql    # Transaction examples for order processing and stock management
 ├── modelo_ER.png       # Entity-Relationship diagram
-└── README.md           # Project documentation
+└── README.md
+└── scalability_experiments/
+         ├── sharding_simulation.sql   #Manual Sharding Experiment
+         ├── cache_simulation.sql #Cache #Two caching approaches
+
 ```
 
 ## Scripts
@@ -39,6 +43,31 @@ This project aims to design and implement a relational database for managing an 
 
 - **transactions.sql**  
   Demonstrates transaction management for order creation and stock updates, including examples of commit and rollback to ensure data integrity during order processing.
+
+- **_sharding_simulation.sql_**
+  Manual sharding experiment: Added the country attribute to the customer table and generated shards by region (Americas and Europe) for similar distributed databases.
+
+  - The `customers` table is split into two shards (`customers_america`, `customers_europe`) based on country.
+  - Example of a unified query using `UNION` to simulate a distributed scenario.
+
+- **_cache_simulation.sql_**
+  In this experiment, two caching approaches (temporary and persistent) are simulated to optimize queries in an e-commerce.
+
+  Option A: Cache with Temporary Tables
+
+  - A temporary table (cache_top_products) is created to store the TOP 5 best-selling products.
+  - The table is then reused across multiple queries (e.g., analyzing customers who purchased these products).
+    This reduces the cost of recalculating heavy metrics in every single query.
+
+  Option B: Cache with Persistent Table
+
+  - A persistent table (cache_top_products) is created, which remains in the database beyond the current session.
+  - The table content is refreshed periodically (e.g., every 10 minutes or 1 hour) using a TRUNCATE followed by an INSERT ... SELECT query that recalculates the TOP 5.
+  - It includes a last_updated column with an automatic timestamp, which allows tracking when the cache was last refreshed.
+  - This approach is closer to a real production scenario, since it avoids recalculating in real time and ensures fast responses for frequent queries (e.g., showing the best-selling products on the homepage).
+  - Cache refreshing can be further optimized using MySQL EVENTS (task scheduling inside the database engine), which would keep the cache updated automatically without manual intervention. This is a topic I plan to explore further as part of my learning journey.
+
+These experiments are not mandatory, but they illustrate common techniques in large projects where performance is key.
 
 ## How to Use
 
