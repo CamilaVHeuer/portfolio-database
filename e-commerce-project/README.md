@@ -14,7 +14,7 @@ This project aims to design and implement a relational database for managing an 
 ├── queries.sql         # Key queries for management and analysis
 ├── transactions.sql    # Transaction examples for order processing and stock management
 ├── modelo_ER.png       # Entity-Relationship diagram
-└── README.md
+└── README.md           # Project documentation
 └── scalability_experiments/
          ├── sharding_simulation.sql   #Manual Sharding Experiment
          ├── cache_simulation.sql #Cache #Two caching approaches
