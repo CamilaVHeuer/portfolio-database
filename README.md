@@ -73,6 +73,18 @@ Current example:
   - Project built and tested using XAMPP and phpMyAdmin
   - Includes screenshots of query results as seen in phpMyAdmin
 
+### 3. E-commerce Project (`e-commerce-project`)
+
+- Entities: customers, products, orders, order_details
+- Queries: sales analysis, product performance, customer activity, stock management
+- Engine: MySQL
+- What you'll find:
+  - Use of indexes to optimize queries and improve performance (new concept)
+  - Implementation of transactions for order creation and stock updates (new concept)
+  - Transaction control with COMMIT and ROLLBACK for data integrity
+  - JOINs and aggregate functions for sales and inventory analysis
+  - Practical examples for managing and analyzing e-commerce operations
+
 Each project will have its own ER diagram and specific documentation.
 
 ---
