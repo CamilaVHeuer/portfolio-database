@@ -84,6 +84,7 @@ Current example:
   - Transaction control with COMMIT and ROLLBACK for data integrity
   - JOINs and aggregate functions for sales and inventory analysis
   - Practical examples for managing and analyzing e-commerce operations
+  - Scalability experiments: this project also includes sharding and caching experiments to simulate real-world database challenges.
 
 Each project will have its own ER diagram and specific documentation.
 
