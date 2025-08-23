@@ -4,27 +4,13 @@ ALTER TABLE customers ADD COLUMN country VARCHAR(50);
 -- 2. Assign fictitious countries to existing customers
 UPDATE customers
 SET
-    country = 'Argentina'
-WHERE
-    customer_id IN (1, 2, 3);
-
-UPDATE customers
-SET
-    country = 'Chile'
-WHERE
-    customer_id IN (4, 5);
-
-UPDATE customers
-SET
-    country = 'USA'
-WHERE
-    customer_id IN (6, 7, 8);
-
-UPDATE customers
-SET
-    country = 'Spain'
-WHERE
-    customer_id IN (9, 10);
+    country = CASE
+        WHEN customer_id IN (1, 2, 3) THEN 'Argentina'
+        WHEN customer_id IN (4, 5) THEN 'Chile'
+        WHEN customer_id IN (6, 7, 8) THEN 'USA'
+        WHEN customer_id IN (9, 10) THEN 'Spain'
+        ELSE country -- keep the current value
+    END;
 
 -- 3. Manually create shards (simulation)
 -- Customers from America
