@@ -49,6 +49,7 @@ This project aims to design and implement a relational database for managing an 
 
   - The `customers` table is split into two shards (`customers_america`, `customers_europe`) based on country.
   - Example of a unified query using `UNION` to simulate a distributed scenario.
+  - Demonstrates the use of `CASE` to avoid code repetition and handle logic within queries (showing progress in writing more efficient SQL).
 
 - **_cache_simulation.sql_**
   In this experiment, two caching approaches (temporary and persistent) are simulated to optimize queries in an e-commerce.
