@@ -12,6 +12,7 @@ This project aims to design and implement a relational database for managing an 
 ├── create_table.sql    # Table creation script (includes indexes)
 ├── insert_data.sql     # Sample data insertion script
 ├── queries.sql         # Key queries for management and analysis
+├── procedures.sql      # Stored procedures for business logic automation
 ├── transactions.sql    # Transaction examples for order processing and stock management
 ├── modelo_ER.png       # Entity-Relationship diagram
 └── README.md           # Project documentation
@@ -40,6 +41,14 @@ This project aims to design and implement a relational database for managing an 
   - List and organize customers, products, and orders
   - Analyze sales, revenue, and product performance
   - Support e-commerce management and reporting
+
+- **procedures.sql**  
+  Implements stored procedures to automate common business logic operations:
+
+  - `calculate_order_total`: Calculates the total amount of an order by summing the quantity × price of all products in the order
+  - Includes examples of procedure calls and integration with other queries
+  - Demonstrates advanced usage patterns, including integration with reporting tables
+  - Shows best practices for procedure parameter handling (IN/OUT parameters)
 
 - **transactions.sql**  
   Demonstrates transaction management for order creation and stock updates, including examples of commit and rollback to ensure data integrity during order processing.
@@ -89,7 +98,10 @@ These experiments are not mandatory, but they illustrate common techniques in la
 4. **Run `queries.sql`**  
    Execute the queries to manage, monitor, and analyze e-commerce activity.
 
-5. **Run `transactions.sql`**  
+5. **Run `procedures.sql`**  
+   Create and test stored procedures for automated business logic operations.
+
+6. **Run `transactions.sql`**  
    Test transaction scenarios for order creation and stock management.
 
 ## Author
