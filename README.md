@@ -2,7 +2,7 @@
 
 I am Camila Villalba Heuer, a chemical engineer and nuclear specialist, currently training in data analysis and database development. My goal is to integrate my engineering experience with the potential of the data world, creating solutions that combine technical rigor and practical value.
 
-Through these projects, I am building hands-on experience with relational database modeling, advanced SQL (including joins, subqueries, transactions, indexing, and performance optimization), and practical scenarios such as sales management, scheduling, and e-commerce. My portfolio demonstrates my ability to design, implement, and analyze databases using real-world requirements and best practices.
+Through these projects, I am building hands-on experience with relational database modeling, advanced SQL (including joins, subqueries, transactions, indexing, stored procedures, and performance optimization), and practical scenarios such as sales management, scheduling, and e-commerce. My portfolio demonstrates my ability to design, implement, and analyze databases using real-world requirements and best practices.
 
 In this repository you will find practical projects that demonstrate my skills in designing, implementing, and querying databases, applying key SQL concepts in real and simulated scenarios.
 
@@ -86,6 +86,7 @@ Current example:
   - Transaction control with COMMIT and ROLLBACK for data integrity
   - JOINs and aggregate functions for sales and inventory analysis
   - Use of CASE statements to avoid code repetition and write more efficient queries
+  - Stored procedures for reusable business logic and complex operations (new concept)
   - Practical examples for managing and analyzing e-commerce operations
   - Scalability experiments: this project also includes sharding and caching experiments to simulate real-world database challenges.
 
