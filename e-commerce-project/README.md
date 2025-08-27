@@ -46,9 +46,11 @@ This project aims to design and implement a relational database for managing an 
   Implements stored procedures to automate common business logic operations:
 
   - `calculate_order_total`: Calculates the total amount of an order by summing the quantity × price of all products in the order
+  - `insert_order_from_cart`: Creates a new order from a shopping cart, copying all cart items to order details, calculating the total, and clearing the cart
   - Includes examples of procedure calls and integration with other queries
   - Demonstrates advanced usage patterns, including integration with reporting tables
   - Shows best practices for procedure parameter handling (IN/OUT parameters)
+  - Features shopping cart simulation with temporary tables for testing order creation workflows
 
 - **transactions.sql**  
   Demonstrates transaction management for order creation and stock updates, including examples of commit and rollback to ensure data integrity during order processing.
