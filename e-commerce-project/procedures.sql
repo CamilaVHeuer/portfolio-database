@@ -78,3 +78,71 @@ ON DUPLICATE KEY UPDATE
 
 -- Query the reports table
 SELECT * FROM order_reports;
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+-- ====================================================================
+-- Procedure to insert a new order through a shopping cart: 
+-- The procedure inserts a new order in "orders".
+-- And then inserts the product lines in "order_details".
+-- Using the previously created procedure, we calculate the order total.
+--===================================================================
+
+-- Create a temporary table to simulate a shopping cart
+CREATE TABLE IF NOT EXISTS cart (
+    customer_id INT,
+    product_id INT,
+    quantity INT
+);
+-- Insert products to the cart for customer 1
+
+INSERT INTO
+    cart (
+        customer_id,
+        product_id,
+        quantity
+    )
+VALUES (1, 1, 1),
+    (1, 2, 2),
+    (1, 5, 1);
+
+-- Create the procedure to insert an order from the cart. The procedure:
+-- Creates an order in orders.
+-- Copies all products from that customer's cart to order_details.
+-- Calculates the total and saves it in order_reports.
+-- Clears the customer's cart.
+
+DELIMITER /
+/
+
+CREATE PROCEDURE insert_order_from_cart (IN o_customer_id INT)
+BEGIN
+    DECLARE new_order_id INT;
+
+    -- Create a new order
+    INSERT INTO orders (customer_id, date)
+    VALUES (o_customer_id, NOW());
+
+    SET new_order_id = LAST_INSERT_ID();
+
+    -- Copy products from cart to order_details
+    INSERT INTO order_details (order_id, product_id, quantity)
+    SELECT new_order_id, product_id, quantity
+    FROM cart
+    WHERE customer_id = o_customer_id;
+
+    -- Calculate the total and save it in order_reports
+    CALL calculate_order_total (new_order_id, @order_total);
+    INSERT INTO order_reports (order_id, total_amount)
+    VALUES (new_order_id, @order_total)
+    ON DUPLICATE KEY UPDATE total_amount = @order_total;
+
+    -- Clear the customer's cart
+    DELETE FROM cart WHERE customer_id = o_customer_id;
+END
+/
+/
+
+DELIMITER;
+
+-- Call the procedure to insert an order from customer 1's cart
+CALL insert_order_from_cart (1);
