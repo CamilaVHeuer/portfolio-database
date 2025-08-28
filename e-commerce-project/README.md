@@ -47,10 +47,12 @@ This project aims to design and implement a relational database for managing an 
 
   - `calculate_order_total`: Calculates the total amount of an order by summing the quantity × price of all products in the order
   - `insert_order_from_cart`: Creates a new order from a shopping cart, copying all cart items to order details, calculating the total, and clearing the cart
+  - `insert_order_from_cart_2`: Advanced version with transaction management and stock validation. Includes automatic rollback if insufficient stock is detected, ensuring data integrity during order processing
   - Includes examples of procedure calls and integration with other queries
   - Demonstrates advanced usage patterns, including integration with reporting tables
   - Shows best practices for procedure parameter handling (IN/OUT parameters)
   - Features shopping cart simulation with temporary tables for testing order creation workflows
+  - Implements transaction control with COMMIT/ROLLBACK for safe order processing
 
 - **transactions.sql**  
   Demonstrates transaction management for order creation and stock updates, including examples of commit and rollback to ensure data integrity during order processing.
@@ -63,7 +65,7 @@ This project aims to design and implement a relational database for managing an 
   - Demonstrates the use of `CASE` to avoid code repetition and handle logic within queries (showing progress in writing more efficient SQL).
 
 - **_cache_simulation.sql_**
-  In this experiment, two caching approaches (temporary and persistent) are simulated to optimize queries in an e-commerce.
+  In this experiment, three caching approaches (temporary, persistent, and automated) are simulated to optimize queries in an e-commerce.
 
   Option A: Cache with Temporary Tables
 
@@ -77,6 +79,12 @@ This project aims to design and implement a relational database for managing an 
   - The table content is refreshed periodically (e.g., every 10 minutes or 1 hour) using a TRUNCATE followed by an INSERT ... SELECT query that recalculates the TOP 5.
   - It includes a last_updated column with an automatic timestamp, which allows tracking when the cache was last refreshed.
   - This approach is closer to a real production scenario, since it avoids recalculating in real time and ensures fast responses for frequent queries (e.g., showing the best-selling products on the homepage).
+
+  Option C: Automated Cache Refresh with MySQL Events
+
+  - Implements MySQL EVENT scheduler to automatically refresh the cache every 10 minutes without manual intervention.
+  - Leverages the persistent table from Option B and adds automated maintenance using database-level task scheduling.
+  - Demonstrates production-ready caching patterns where cache updates happen transparently in the background.
   - Cache refreshing can be further optimized using MySQL EVENTS (task scheduling inside the database engine), which would keep the cache updated automatically without manual intervention. This is a topic I plan to explore further as part of my learning journey.
 
 These experiments are not mandatory, but they illustrate common techniques in large projects where performance is key.
