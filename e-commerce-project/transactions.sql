@@ -1,7 +1,9 @@
--- Transaction: new order creation
+-- ==================================================================
+-- Transaction: new order creation with stock update
 -- This transaction inserts a new order and updates the stock of the product.
 -- If the product stock is insufficient, the transaction will be rolled back.
 -- Ensure that the database and tables are created before running this transaction.
+-- ==================================================================
 START TRANSACTION;
 
 -- 1. Check current stock
@@ -39,8 +41,10 @@ COMMIT;
 -- If something failed (e.g.: insufficient stock, non-existent product, insert error)
 -- ROLLBACK;
 
+-- ==================================================================
 -- Test transaction with rollback
 -- This transaction demonstrates how to check stock levels, modify them, and then either commit or rollback the changes.
+-- ==================================================================
 -- It is useful for testing purposes to ensure that stock levels are managed correctly.
 -- Ensure that the database and tables are created before running this transaction.
 -- This transaction does not commit changes, allowing for testing of rollback functionality.
