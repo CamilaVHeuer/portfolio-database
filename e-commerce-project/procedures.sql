@@ -160,7 +160,7 @@ BEGIN
     DECLARE new_order_id INT;
     DECLARE insufficient_stock INT DEFAULT 0;
 
-    -- Handler: si hay error SQL → rollback
+    -- Handler: if there's an SQL error → rollback
     DECLARE EXIT HANDLER FOR SQLEXCEPTION 
     BEGIN
         ROLLBACK;
@@ -168,12 +168,12 @@ BEGIN
 
     START TRANSACTION;
 
-    -- 1. Crear nuevo pedido
+    -- 1. Create new order
     INSERT INTO orders (customer_id, date)
     VALUES (o_customer_id, NOW());
     SET new_order_id = LAST_INSERT_ID();
 
-    -- 2. Verificar stock producto por producto (y bloquear fila con FOR UPDATE)
+    -- 2. Check stock product by product (and lock row with FOR UPDATE)
     SELECT COUNT(*) INTO insufficient_stock
     FROM cart c
     JOIN products p ON c.product_id = p.product_id
@@ -182,33 +182,33 @@ BEGIN
     FOR UPDATE;
 
     IF insufficient_stock > 0 THEN
-        -- Si algún producto no tiene stock suficiente → rollback
+        -- If any product doesn't have sufficient stock → rollback
         ROLLBACK;
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Stock insuficiente para uno o más productos';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Insufficient stock for one or more products';
     END IF;
 
-    -- 3. Actualizar stock de cada producto
+    -- 3. Update stock for each product
     UPDATE products p
     JOIN cart c ON p.product_id = c.product_id
     SET p.stock = p.stock - c.quantity
     WHERE c.customer_id = o_customer_id;
 
-    -- 4. Insertar detalles del pedido
+    -- 4. Insert order details
     INSERT INTO order_details (order_id, product_id, quantity)
     SELECT new_order_id, product_id, quantity
     FROM cart
     WHERE customer_id = o_customer_id;
 
-    -- 5. Calcular total y guardar en reportes.
-    -- Usamos la procedure creada anteriormente para calcular el total.
+    -- 5. Calculate total and save in reports.
+    -- We use the previously created procedure to calculate the total.
     CALL calculate_order_total(new_order_id, @order_total);
 
-    -- Guardar el total en order_reports
+    -- Save the total in order_reports
     INSERT INTO order_reports (order_id, total_amount)
     VALUES (new_order_id, @order_total)
     ON DUPLICATE KEY UPDATE total_amount = @order_total;
 
-    -- 6. Limpiar carrito
+    -- 6. Clear cart
     DELETE FROM cart WHERE customer_id = o_customer_id;
 
     COMMIT;
@@ -238,3 +238,20 @@ VALUES (2, 5, 1),
 
 -- Call the procedure to insert an order from customer 2's cart
 CALL insert_order_from_cart_2 (2);
+
+-- ===================================================================
+-- Example usage of the insert_order_from_cart_2 procedure and verifying that the order cannot be placed if there's no stock
+-- ===================================================================
+INSERT INTO
+    cart (
+        customer_id,
+        product_id,
+        quantity
+    )
+VALUES (3, 2, 10),
+    (3, 8, 10),
+    (3, 7, 1);
+
+CALL insert_order_from_cart_2 (3);
+-- We see that the order was not placed because there's insufficient stock.
+-- Regarding the error: in phpMyAdmin the error message is not visible but it tells us that MySQL has returned an empty result set (i.e.: zero columns), which indicates that an error has occurred.
