@@ -75,7 +75,8 @@ FROM
     JOIN cache_top_products ctp ON od.product_id = ctp.product_id;
 
 --==================================================================
--- Option C: Using a event to refresh the cache automatically. (Aprovechamos la tabla persistente creada en la opción B).
+-- Option C: Using a event to refresh the cache automatically.
+-- (We leverage the persistent table created in option B).
 -- This option requires the event scheduler to be enabled in MySQL.
 -- To enable the event scheduler, run: SET GLOBAL event_scheduler = ON;
 -- To check if it's enabled, run: SHOW VARIABLES LIKE 'event_scheduler';
