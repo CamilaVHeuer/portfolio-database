@@ -81,7 +81,7 @@ SELECT * FROM order_reports;
 
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 -- ====================================================================
--- Procedure to insert a new order through a shopping cart: 
+-- Procedure to insert a new order through a shopping cart:
 -- The procedure inserts a new order in "orders".
 -- And then inserts the product lines in "order_details".
 -- Using the previously created procedure, we calculate the order total.
@@ -146,3 +146,112 @@ DELIMITER;
 
 -- Call the procedure to insert an order from customer 1's cart
 CALL insert_order_from_cart (1);
+
+-- ===================================================================
+-- Procedure + transaction for order creation through a shopping cart:
+-- This version includes stock validation and update.
+-- If any product has insufficient stock, the entire operation is rolled back.
+-- ===================================================================
+DELIMITER /
+/
+
+CREATE PROCEDURE insert_order_from_cart_2 (IN o_customer_id INT)
+BEGIN
+    DECLARE new_order_id INT;
+    DECLARE insufficient_stock INT DEFAULT 0;
+
+    -- Handler: if there's an SQL error → rollback
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+    BEGIN
+        ROLLBACK;
+    END;
+
+    START TRANSACTION;
+
+    -- 1. Create new order
+    INSERT INTO orders (customer_id, date)
+    VALUES (o_customer_id, NOW());
+    SET new_order_id = LAST_INSERT_ID();
+
+    -- 2. Check stock product by product (and lock row with FOR UPDATE)
+    SELECT COUNT(*) INTO insufficient_stock
+    FROM cart c
+    JOIN products p ON c.product_id = p.product_id
+    WHERE c.customer_id = o_customer_id
+      AND c.quantity > p.stock
+    FOR UPDATE;
+
+    IF insufficient_stock > 0 THEN
+        -- If any product doesn't have sufficient stock → rollback
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Insufficient stock for one or more products';
+    END IF;
+
+    -- 3. Update stock for each product
+    UPDATE products p
+    JOIN cart c ON p.product_id = c.product_id
+    SET p.stock = p.stock - c.quantity
+    WHERE c.customer_id = o_customer_id;
+
+    -- 4. Insert order details
+    INSERT INTO order_details (order_id, product_id, quantity)
+    SELECT new_order_id, product_id, quantity
+    FROM cart
+    WHERE customer_id = o_customer_id;
+
+    -- 5. Calculate total and save in reports.
+    -- We use the previously created procedure to calculate the total.
+    CALL calculate_order_total(new_order_id, @order_total);
+
+    -- Save the total in order_reports
+    INSERT INTO order_reports (order_id, total_amount)
+    VALUES (new_order_id, @order_total)
+    ON DUPLICATE KEY UPDATE total_amount = @order_total;
+
+    -- 6. Clear cart
+    DELETE FROM cart WHERE customer_id = o_customer_id;
+
+    COMMIT;
+END
+/
+/
+
+DELIMITER;
+
+-- ===================================================================
+-- Example usage of the insert_order_from_cart_2 procedure
+-- ===================================================================
+-- First, we need to add products to the cart for a customer
+-- (in a real application, this would be done through the application logic)
+-- Here we simulate adding products to the cart for customer 2
+
+-- Insert products into the cart for customer 2
+INSERT INTO
+    cart (
+        customer_id,
+        product_id,
+        quantity
+    )
+VALUES (2, 5, 1),
+    (2, 6, 2),
+    (2, 7, 1);
+
+-- Call the procedure to insert an order from customer 2's cart
+CALL insert_order_from_cart_2 (2);
+
+-- ===================================================================
+-- Example usage of the insert_order_from_cart_2 procedure and verifying that the order cannot be placed if there's no stock
+-- ===================================================================
+INSERT INTO
+    cart (
+        customer_id,
+        product_id,
+        quantity
+    )
+VALUES (3, 2, 10),
+    (3, 8, 10),
+    (3, 7, 1);
+
+CALL insert_order_from_cart_2 (3);
+-- We see that the order was not placed because there's insufficient stock.
+-- Regarding the error: in phpMyAdmin the error message is not visible but it tells us that MySQL has returned an empty result set (i.e.: zero columns), which indicates that an error has occurred.
