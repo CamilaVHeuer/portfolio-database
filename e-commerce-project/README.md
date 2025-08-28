@@ -18,7 +18,7 @@ This project aims to design and implement a relational database for managing an 
 └── README.md           # Project documentation
 └── scalability_experiments/
          ├── sharding_simulation.sql   #Manual Sharding Experiment
-         ├── cache_simulation.sql #Cache #Two caching approaches
+         ├── cache_simulation.sql #Cache #Three caching approaches
 
 ```
 
