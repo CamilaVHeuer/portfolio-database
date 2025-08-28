@@ -240,7 +240,8 @@ VALUES (2, 5, 1),
 CALL insert_order_from_cart_2 (2);
 
 -- ===================================================================
--- Example usage of the insert_order_from_cart_2 procedure and verifying that the order cannot be placed if there's no stock
+-- Example usage of the insert_order_from_cart_2 procedure and
+-- verifying that the order cannot be placed if there's no stock
 -- ===================================================================
 INSERT INTO
     cart (
