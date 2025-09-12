@@ -2,25 +2,7 @@
 -- ==========================================================
 -- TRIGGER: update stock after inserting into order_details
 -- Every time an order detail is inserted,
--- the product stock is automat    customer_id = 1
-AND address_id = 1;
-
--- 3. Delete that address
-DELETE FROM customer_addresses
-WHERE
-    customer_id = 1
-    AND address_id = 1;
--- NOTE: it's important to apply the filter (WHERE) for both customer_id and address_id since the same customer can have multiple addresses.
-
--- 4. Check the audit log
-SELECT * FROM customer_addresses_audit;
-
--- CLEAN THE AUDIT TABLE AFTER TESTS:
-TRUNCATE TABLE customer_addresses_audit;
--- To see the triggers created for the customer_addresses table:
-SHOW TRIGGERS LIKE 'customer_addresses';
-
-d.
+-- the product stock is automatically discounted
 -- ==========================================================
 
 DELIMITER /
@@ -269,17 +251,18 @@ WHERE
     customer_id = 1
     AND address_id = 1;
 
--- 3. Eliminar esa dirección
+-- 3. Delete it
 DELETE FROM customer_addresses
 WHERE
     customer_id = 1
     AND address_id = 1;
---NOTA: es importante aplicar el filtro (WHERE) tanto por customer_id como por address_id ya que un mismo customer puede tener varias direcciones.
+--NOTE: It is important to apply the (WHERE) filter by both customer_id and Address_id since the same customer can have multiple addresses.
 
--- 4. Revisar el log de auditoría
+-- 4. Check the audit log
 SELECT * FROM customer_addresses_audit;
 
--- LIMPIAR LA TABLA DE AUDITORÍA TRAS LAS PRUEBAS:
+-- CLEAN THE AUDIT TABLE AFTER TESTS:
 TRUNCATE TABLE customer_addresses_audit;
--- Para ver los triggers creados para la tabla customer_addresses:
+
+-- -- To see the triggers created for the customer_addresses table:
 SHOW TRIGGERS LIKE 'customer_addresses';
