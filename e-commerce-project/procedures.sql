@@ -79,7 +79,6 @@ ON DUPLICATE KEY UPDATE
 -- Query the reports table
 SELECT * FROM order_reports;
 
-= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 -- ====================================================================
 -- Procedure to insert a new order through a shopping cart:
 -- The procedure inserts a new order in "orders".
@@ -256,3 +255,101 @@ VALUES (3, 2, 10),
 CALL insert_order_from_cart_2 (3);
 -- We see that the order was not placed because there's insufficient stock.
 -- Regarding the error: in phpMyAdmin the error message is not visible but it tells us that MySQL has returned an empty result set (i.e.: zero columns), which indicates that an error has occurred.
+
+--===================================================================
+-- Procedure to insert a new order through a shopping cart and
+-- updating the stock through the trigger:
+-- This version uses the trigger defined in triggers.sql to update stock automatically.
+--===================================================================
+DELIMITER /
+/
+
+CREATE PROCEDURE insert_order_from_cart_3 (IN o_customer_id INT)
+BEGIN
+    DECLARE new_order_id INT;
+    DECLARE insufficient_stock INT DEFAULT 0;
+
+    -- Handler: if there's an SQL error → rollback
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+    BEGIN
+        ROLLBACK;
+    END;
+
+    START TRANSACTION;
+
+    -- 1. Create new order
+    INSERT INTO orders (customer_id, date)
+    VALUES (o_customer_id, NOW());
+    SET new_order_id = LAST_INSERT_ID();
+
+    -- 2. Check stock product by product (and lock row with FOR UPDATE)
+    SELECT COUNT(*) INTO insufficient_stock
+    FROM cart c
+    JOIN products p ON c.product_id = p.product_id
+    WHERE c.customer_id = o_customer_id
+      AND c.quantity > p.stock
+    FOR UPDATE;
+
+    IF insufficient_stock > 0 THEN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Insufficient stock for one or more products';
+    END IF;
+
+    -- 3. Insert order details
+    -- (the trigger will update stock automatically)
+    INSERT INTO order_details (order_id, product_id, quantity)
+    SELECT new_order_id, product_id, quantity
+    FROM cart
+    WHERE customer_id = o_customer_id;
+
+    -- 4. Calculate total and save in reports
+    CALL calculate_order_total(new_order_id, @order_total);
+
+    INSERT INTO order_reports (order_id, total_amount)
+    VALUES (new_order_id, @order_total)
+    ON DUPLICATE KEY UPDATE total_amount = @order_total;
+
+    -- 5. Clear cart
+    DELETE FROM cart WHERE customer_id = o_customer_id;
+
+    COMMIT;
+END
+/
+/
+
+DELIMITER;
+-- ===================================================================
+-- Example usage of the insert_order_from_cart_3 procedure
+-- ===================================================================
+-- First, we need to add products to the cart for a customer
+-- (in a real application, this would be done through the application logic)
+-- Here we simulate adding products to the cart for customer 3
+-- Insert products into the cart for customer 3
+INSERT INTO
+    cart (
+        customer_id,
+        product_id,
+        quantity
+    )
+VALUES (5, 1, 1),
+    (5, 3, 2),
+    (5, 8, 1);
+-- Call the procedure to insert an order from customer 5's cart
+CALL insert_order_from_cart_3 (5);
+-- Check that the order was created correctly and that the stock was updated automatically thanks to the trigger.
+SELECT * FROM orders WHERE customer_id = 5;
+
+SELECT * FROM order_details;
+
+SELECT * FROM products WHERE product_id IN (1, 3, 8);
+
+-- Check that the cart is clean
+SELECT * FROM cart;
+
+-- IMPORTANT: after creating this procedure, the insert_order_from_cart_2 procedure can be deleted
+-- since the insert_order_from_cart_3 procedure is an improved version that uses the trigger to update stock automatically.
+-- Also, if we use the insert_order_from_cart_2 procedure with the trigger, the stock will be decremented twice. Don't mix the logics.
+--=============================================================================================
+
+DROP PROCEDURE IF EXISTS insert_order_from_cart_2;
