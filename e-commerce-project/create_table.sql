@@ -5,6 +5,18 @@ CREATE TABLE customers (
     last_name VARCHAR(50),
     email VARCHAR(50)
 );
+#this table stores multiple addresses for each customer
+CREATE TABLE customer_addresses (
+    address_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    address_line VARCHAR(255),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    postal_code VARCHAR(20),
+    country VARCHAR(100),
+    is_default BOOLEAN DEFAULT 0,
+    FOREIGN KEY (customer_id) REFERENCES customers (customer_id)
+);
 
 CREATE TABLE products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
