@@ -14,6 +14,7 @@ This project aims to design and implement a relational database for managing an 
 ├── queries.sql         # Key queries for management and analysis
 ├── procedures.sql      # Stored procedures for business logic automation
 ├── transactions.sql    # Transaction examples for order processing and stock management
+├── triggers.sql        # Database triggers for automation and audit
 ├── modelo_ER.png       # Entity-Relationship diagram
 └── README.md           # Project documentation
 └── scalability_experiments/
@@ -28,6 +29,7 @@ This project aims to design and implement a relational database for managing an 
   Creates all tables required for the e-commerce database, including primary keys, foreign keys, constraints, and the use of indexes to optimize queries and performance.
 
   - Customers
+  - Customer addresses
   - Products
   - Orders
   - Order details
@@ -48,14 +50,27 @@ This project aims to design and implement a relational database for managing an 
   - `calculate_order_total`: Calculates the total amount of an order by summing the quantity × price of all products in the order
   - `insert_order_from_cart`: Creates a new order from a shopping cart, copying all cart items to order details, calculating the total, and clearing the cart
   - `insert_order_from_cart_2`: Advanced version with transaction management and stock validation. Includes automatic rollback if insufficient stock is detected, ensuring data integrity during order processing
+  - `insert_order_from_cart_3`: Optimized version that leverages database triggers for automatic stock updates, eliminating manual stock management and preventing double decrements
   - Includes examples of procedure calls and integration with other queries
   - Demonstrates advanced usage patterns, including integration with reporting tables
   - Shows best practices for procedure parameter handling (IN/OUT parameters)
   - Features shopping cart simulation with temporary tables for testing order creation workflows
   - Implements transaction control with COMMIT/ROLLBACK for safe order processing
+  - Demonstrates the evolution from manual to trigger-based stock management
 
 - **transactions.sql**  
   Demonstrates transaction management for order creation and stock updates, including examples of commit and rollback to ensure data integrity during order processing.
+
+- **triggers.sql**  
+  Implements database triggers for automation and audit functionality:
+
+  - `trg_update_stock`: Automatically decrements product stock when order details are inserted - works seamlessly with `insert_order_from_cart_3` procedure for real-time inventory management
+  - `trg_customers_insert/update/delete`: Complete audit system for the customers table - tracks all INSERT, UPDATE, and DELETE operations with before/after values
+  - `trg_customer_address_insert/update/delete`: Comprehensive audit system for the customer_addresses table - monitors all changes to customer addresses with complete change history
+  - Includes comprehensive audit tables with automatic timestamps and user tracking for compliance and debugging
+  - Features step-by-step testing examples for each trigger functionality
+  - Shows best practices for audit trail implementation and data integrity maintenance
+  - Illustrates the transition from manual to automated database operations
 
 - **_sharding_simulation.sql_**
   Manual sharding experiment: Added the country attribute to the customer table and generated shards by region (Americas and Europe) for similar distributed databases.
@@ -111,7 +126,10 @@ These experiments are not mandatory, but they illustrate common techniques in la
 5. **Run `procedures.sql`**  
    Create and test stored procedures for automated business logic operations.
 
-6. **Run `transactions.sql`**  
+6. **Run `triggers.sql`**  
+   Set up database triggers for automatic stock management and audit functionality.
+
+7. **Run `transactions.sql`**  
    Test transaction scenarios for order creation and stock management.
 
 ## Author
