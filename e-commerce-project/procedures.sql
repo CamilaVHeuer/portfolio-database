@@ -64,6 +64,9 @@ CREATE TABLE IF NOT EXISTS order_reports (
     total_amount DECIMAL(10, 2)
 );
 
+ALTER TABLE order_reports
+ADD CONSTRAINT fk_order_reports_order FOREIGN KEY (order_id) REFERENCES orders (order_id);
+
 -- Call the procedure and save the result in the reports table
 CALL calculate_order_total (2, @order_total);
 
@@ -92,6 +95,10 @@ CREATE TABLE IF NOT EXISTS cart (
     product_id INT,
     quantity INT
 );
+
+ALTER TABLE cart
+ADD CONSTRAINT fk_cart_customer FOREIGN KEY (customer_id) REFERENCES customers (customer_id),
+ADD CONSTRAINT fk_cart_product FOREIGN KEY (product_id) REFERENCES products (product_id);
 -- Insert products to the cart for customer 1
 
 INSERT INTO
@@ -332,17 +339,17 @@ INSERT INTO
         product_id,
         quantity
     )
-VALUES (5, 1, 1),
-    (5, 3, 2),
-    (5, 8, 1);
+VALUES (8, 1, 1),
+    (8, 2, 2),
+    (8, 8, 1);
 -- Call the procedure to insert an order from customer 5's cart
-CALL insert_order_from_cart_3 (5);
+CALL insert_order_from_cart_3 (8);
 -- Check that the order was created correctly and that the stock was updated automatically thanks to the trigger.
-SELECT * FROM orders WHERE customer_id = 5;
+SELECT * FROM orders WHERE customer_id = 8;
 
 SELECT * FROM order_details;
 
-SELECT * FROM products WHERE product_id IN (1, 3, 8);
+SELECT * FROM products WHERE product_id IN (1, 2, 8);
 
 -- Check that the cart is clean
 SELECT * FROM cart;
