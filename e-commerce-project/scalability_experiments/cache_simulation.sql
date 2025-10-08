@@ -45,7 +45,8 @@ CREATE TABLE IF NOT EXISTS cache_top_products (
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 -- last_updated works as an automatic timestamp, always reflecting the last time the row was created or modified.
-
+ALTER TABLE cache_top_products
+ADD CONSTRAINT fk_cache_product FOREIGN KEY (product_id) REFERENCES products (product_id);
 -- 2. Refresh the cache (example: every 10 minutes with an EVENT or manually)
 TRUNCATE TABLE cache_top_products;
 
