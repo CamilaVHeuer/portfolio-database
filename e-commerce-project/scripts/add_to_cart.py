@@ -13,28 +13,36 @@ def validar_customer(cursor):
         except ValueError:
             print("❌ Debe ingresar un número entero.")
 
+
 def validar_product(cursor):
-    """Pide product_id y valida que exista en la BD."""
+    """Pide product_id y valida que exista en la BD. Devuelve también el stock disponible."""
     while True:
         try:
             product_id = int(input("Ingrese el ID del producto: "))
-            cursor.execute("SELECT 1 FROM products WHERE product_id=%s", (product_id,))
-            if cursor.fetchone():
-                return product_id
+            cursor.execute("SELECT stock FROM products WHERE product_id=%s", (product_id,))
+            result = cursor.fetchone()
+            if result:
+                stock_disponible = result[0]
+                return product_id, stock_disponible
             print("❌ Producto no existe. Intente de nuevo.")
         except ValueError:
             print("❌ Debe ingresar un número entero.")
 
-def pedir_cantidad():
-    """Pide cantidad y valida que sea positiva."""
+
+def pedir_cantidad(stock_disponible):
+    """Pide cantidad y valida que sea positiva y menor o igual al stock."""
     while True:
         try:
-            quantity = int(input("Ingrese la cantidad: "))
-            if quantity > 0:
+            quantity = int(input(f"Ingrese la cantidad (stock disponible: {stock_disponible}): "))
+            if quantity <= 0:
+                print("❌ La cantidad debe ser mayor a 0.")
+            elif quantity > stock_disponible:
+                print(f"⚠️ Solo hay {stock_disponible} unidades disponibles.")
+            else:
                 return quantity
-            print("❌ La cantidad debe ser mayor a 0.")
         except ValueError:
             print("❌ Debe ingresar un número entero.")
+
 
 def add_to_cart(connection, customer_id, product_id, quantity):
     """Inserta producto en el carrito del cliente."""
@@ -51,6 +59,7 @@ def add_to_cart(connection, customer_id, product_id, quantity):
         print(f"⚠️ Error al agregar producto al carrito: {e}")
         connection.rollback()
 
+
 def create_order(connection, customer_id):
     """Crea pedido usando el procedimiento almacenado."""
     try:
@@ -62,36 +71,38 @@ def create_order(connection, customer_id):
         print(f"⚠️ Error al crear pedido: {e}")
         connection.rollback()
 
+
 def main():
-    # Conexión
+    """Flujo principal del programa."""
     connection = connect_to_db()
     if not connection:
         return
 
     cursor = connection.cursor()
 
-    # Validar cliente
+    # 1️⃣ Validar cliente
     customer_id = validar_customer(cursor)
 
-    # Agregar productos
+    # 2️⃣ Agregar productos
     while True:
-        product_id = validar_product(cursor)
-        quantity = pedir_cantidad()
+        product_id, stock_disponible = validar_product(cursor)
+        quantity = pedir_cantidad(stock_disponible)
         add_to_cart(connection, customer_id, product_id, quantity)
 
         more = input("¿Desea agregar otro producto? (s/n): ").strip().lower()
         if more != 's':
             break
 
-    # Confirmar pedido
+    # 3️⃣ Confirmar creación del pedido
     confirm = input("¿Desea crear el pedido ahora? (s/n): ").strip().lower()
     if confirm == 's':
         create_order(connection, customer_id)
 
-    # Cerrar conexión
+    # 4️⃣ Cerrar conexión
     cursor.close()
     connection.close()
     print("🔒 Conexión cerrada.")
+
 
 if __name__ == "__main__":
     main()
