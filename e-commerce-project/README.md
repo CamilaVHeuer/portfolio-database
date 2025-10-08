@@ -17,6 +17,9 @@ This project aims to design and implement a relational database for managing an 
 ├── triggers.sql        # Database triggers for automation and audit
 ├── modelo_ER.png       # Entity-Relationship diagram
 └── README.md           # Project documentation
+└── scripts/
+    ├── connect_db.py   # Database connection module
+    └── add_to_cart.py  # Interactive cart management application
 └── scalability_experiments/
          ├── sharding_simulation.sql   #Manual Sharding Experiment
          ├── cache_simulation.sql #Cache #Three caching approaches
@@ -71,6 +74,22 @@ This project aims to design and implement a relational database for managing an 
   - Features step-by-step testing examples for each trigger functionality
   - Shows best practices for audit trail implementation and data integrity maintenance
   - Illustrates the transition from manual to automated database operations
+
+## Python Applications
+
+- **scripts/connect_db.py**  
+  Database connection module that handles MySQL connectivity with proper error handling and connection management.
+
+- **scripts/add_to_cart.py**  
+  Interactive command-line application for cart management and order processing:
+
+  - **Input validation**: Validates customer ID and product ID existence in the database before allowing cart operations
+  - **Data integrity**: Ensures only positive quantities and existing entities can be added to cart
+  - **User-friendly interface**: Interactive prompts with clear error messages and confirmation steps
+  - **Database integration**: Uses stored procedures (`insert_order_from_cart_3`) and triggers for order creation
+  - **Error handling**: Comprehensive exception handling with rollback functionality for failed operations
+  - **Real-world simulation**: Demonstrates how front-end applications interact with the database backend
+  - **Transaction management**: Proper commit/rollback operations to maintain data consistency
 
 - **_sharding_simulation.sql_**
   Manual sharding experiment: Added the country attribute to the customer table and generated shards by region (Americas and Europe) for similar distributed databases.
@@ -131,6 +150,11 @@ These experiments are not mandatory, but they illustrate common techniques in la
 
 7. **Run `transactions.sql`**  
    Test transaction scenarios for order creation and stock management.
+
+8. **Test Python Applications**  
+   Use the Python scripts to interact with the database:
+   - Install required dependencies: `pip install mysql-connector-python`
+   - Run `python scripts/add_to_cart.py` to test the interactive cart management system
 
 ## Author
 
