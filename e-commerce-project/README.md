@@ -84,8 +84,9 @@ This project aims to design and implement a relational database for managing an 
   Interactive command-line application for cart management and order processing:
 
   - **Input validation**: Validates customer ID and product ID existence in the database before allowing cart operations
-  - **Data integrity**: Ensures only positive quantities and existing entities can be added to cart
-  - **User-friendly interface**: Interactive prompts with clear error messages and confirmation steps
+  - **Stock validation**: Checks available stock for each product and prevents adding quantities exceeding inventory levels
+  - **Data integrity**: Ensures only positive quantities and existing entities can be added to cart, with real-time stock verification
+  - **User-friendly interface**: Interactive prompts with clear error messages, stock information display, and confirmation steps
   - **Database integration**: Uses stored procedures (`insert_order_from_cart_3`) and triggers for order creation
   - **Error handling**: Comprehensive exception handling with rollback functionality for failed operations
   - **Real-world simulation**: Demonstrates how front-end applications interact with the database backend
