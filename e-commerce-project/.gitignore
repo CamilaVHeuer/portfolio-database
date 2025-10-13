@@ -1,4 +1,7 @@
 *_example.sql
 security.sql
-connect_db.py
+#connect_db.py
 venv/
+__pycache__/
+.env
+
