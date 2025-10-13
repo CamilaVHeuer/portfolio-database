@@ -15,6 +15,7 @@ This project aims to design and implement a relational database for managing an 
 ├── procedures.sql      # Stored procedures for business logic automation
 ├── transactions.sql    # Transaction examples for order processing and stock management
 ├── triggers.sql        # Database triggers for automation and audit
+├── .env.example        # Environment variables template
 ├── modelo_ER.png       # Entity-Relationship diagram
 └── README.md           # Project documentation
 └── scripts/
@@ -75,10 +76,20 @@ This project aims to design and implement a relational database for managing an 
   - Shows best practices for audit trail implementation and data integrity maintenance
   - Illustrates the transition from manual to automated database operations
 
+## Configuration
+
+- **.env.example**  
+  Template file for environment variables configuration:
+
+  - Contains database connection parameters (host, user, password, database name)
+  - Provides secure credential management through environment variables
+  - Copy to `.env` and update with your actual database credentials
+  - Supports different environments (development, testing, production)
+
 ## Python Applications
 
 - **scripts/connect_db.py**  
-  Database connection module that handles MySQL connectivity with proper error handling and connection management.
+  Database connection module that handles MySQL connectivity with proper error handling and connection management using environment variables from `.env` file.
 
 - **scripts/add_to_cart.py**  
   Interactive command-line application for cart management and order processing:
@@ -152,7 +163,14 @@ These experiments are not mandatory, but they illustrate common techniques in la
 7. **Run `transactions.sql`**  
    Test transaction scenarios for order creation and stock management.
 
-8. **Test Python Applications**  
+8. **Configure Environment Variables**  
+   Set up database connection credentials:
+
+   - Copy `.env.example` to `.env`: `cp .env.example .env`
+   - Edit `.env` file with your actual database credentials
+   - Install python-dotenv: `pip install python-dotenv`
+
+9. **Test Python Applications**  
    Use the Python scripts to interact with the database:
    - Install required dependencies: `pip install mysql-connector-python`
    - Run `python scripts/add_to_cart.py` to test the interactive cart management system
