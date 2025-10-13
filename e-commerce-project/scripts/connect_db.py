@@ -3,42 +3,42 @@ from mysql.connector import Error
 import os
 from dotenv import load_dotenv
 
-load_dotenv()  # Cargar variables de entorno desde .env
+load_dotenv()  # Load environment variables from .env
 
 def connect_to_db():
-    """Conecta a la base ecommerce_db usando dev_user y devuelve la conexión."""
+    """Connects to ecommerce_db database using dev_user and returns the connection."""
     try:
         connection = mysql.connector.connect(
-            host=os.getenv("DB_HOST"),         # servidor
-            user=os.getenv("DB_USER"),          # usuario creado
-            password=os.getenv("DB_PASSWORD"),      # contraseña del usuario
-            database=os.getenv("DB_NAME")       # base a conectar
+            host=os.getenv("DB_HOST"),         # server
+            user=os.getenv("DB_USER"),          # created user
+            password=os.getenv("DB_PASSWORD"),      # user password
+            database=os.getenv("DB_NAME")       # database to connect to
         )
 
         if connection.is_connected():
-            print("✅ Conectado a ecommerce_db como dev_user")
+            print("✅ Connected to ecommerce_db as dev_user")
             return connection
 
     except Error as e:
-        print("❌ Error al conectar a la base de datos:", e)
+        print("❌ Error connecting to database:", e)
         return None
 
 def fetch_products(connection):
-    """Ejecuta SELECT * FROM products y muestra resultados."""
+    """Executes SELECT * FROM products and displays results."""
     try:
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM products;")
         rows = cursor.fetchall()
 
         if rows:
-            print("📦 Productos en la base:")
+            print("📦 Products in database:")
             for row in rows:
                 print(row)
         else:
-            print("⚠️ No hay productos en la tabla")
+            print("⚠️ No products in the table")
 
     except Error as e:
-        print("❌ Error al ejecutar consulta:", e)
+        print("❌ Error executing query:", e)
 
     finally:
         cursor.close()
@@ -48,7 +48,7 @@ def main():
     if conn:
         fetch_products(conn)
         conn.close()
-        print("🔒 Conexión cerrada")
+        print("🔒 Connection closed")
 
 if __name__ == "__main__":
     main()
